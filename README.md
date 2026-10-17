@@ -9,9 +9,9 @@ Only Lab 2 is included. The Word handout's body is the source of truth. Its
 header/footer numbering is inconsistent; the body title and student instruction
 identify Lab 2. See [SOURCE_MAP.md](SOURCE_MAP.md) for the source-to-feature map.
 
-Repository: https://github.com/v-Exor/LabAct2_CSST106
+Repository: https://github.com/v-Exor/birch
 
-GitHub Pages address: https://v-exor.github.io/LabAct2_CSST106/
+GitHub Pages address: https://v-exor.github.io/birch/
 
 Use the Pages address for the Lab 2 button in `Website_LaboratoryAct_Compilation`.
 The repository button is configured. Set `compilationUrl` in `site-config.js`

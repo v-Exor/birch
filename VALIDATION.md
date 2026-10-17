@@ -1,8 +1,8 @@
 # Laboratory Activity 2 verification
 
 Original local verification: 16 October 2026, Asia/Manila. Publication was
-authorized on 17 October 2026 for `v-Exor/LabAct2_CSST106`. The Pages address is
-`https://v-exor.github.io/LabAct2_CSST106/`; its deployment status is maintained
+authorized on 17 October 2026 for `v-Exor/birch`. The Pages address is
+`https://v-exor.github.io/birch/`; its deployment status is maintained
 by GitHub in the repository's Pages settings.
 
 ## Source coverage
@@ -91,7 +91,7 @@ Reduced-motion mode disables reveal transitions and smooth scrolling.
 
 ## Limits that remain
 
-- The repository URL is configured as `https://github.com/v-Exor/LabAct2_CSST106`.
+- The repository URL is configured as `https://github.com/v-Exor/birch`.
   The compilation URL remains configurable until the hub has a published address.
   An unconfigured compilation button opens functional link settings.
 - The first runtime load is about 10.9 MB before HTTP compression. Browser resource
