@@ -209,40 +209,15 @@ $('#export-results').addEventListener('click', () => {
   downloadBlob(new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' }), 'lab-02-measurements.json');
 });
 
-let pythonSource = '';
-fetch(new URL('./python/handout_edge_detection.py', import.meta.url)).then(r => { if (!r.ok) throw new Error(); return r.text(); }).then(text => { pythonSource = text; $('#python-code').textContent = text; }).catch(() => { $('#python-code').textContent = 'Unable to load the source preview. Use the handout code download link below.'; });
-$('#copy-code').addEventListener('click', async () => {
-  if (!pythonSource) { toast('Use the Python download link to get the source.'); return; }
-  try { await navigator.clipboard.writeText(pythonSource); toast('Python code copied.'); }
-  catch { const selection = window.getSelection(); const range = document.createRange(); range.selectNodeContents($('#python-code')); selection.removeAllRanges(); selection.addRange(range); toast('Code selected. Press Ctrl+C or Command+C to copy.'); }
-});
-
-const storageKey = 'csst106-lab02-links';
-let stored = {};
-try { stored = JSON.parse(localStorage.getItem(storageKey) || '{}') || {}; } catch { /* File config still works when browser storage is unavailable. */ }
-let config = { compilationUrl: '', repositoryUrl: '', ...window.LAB_CONFIG, ...stored };
-function validUrl(value) { if (!value) return ''; const url = new URL(value); if (!['http:', 'https:'].includes(url.protocol)) throw new Error('Use full HTTP or HTTPS addresses.'); return url.href; }
-function openSettings() { $('#compilation-url').value = config.compilationUrl || ''; $('#repository-url').value = config.repositoryUrl || ''; $('#link-error').hidden = true; $('#link-dialog').showModal(); }
-for (const button of $$('[data-destination]')) button.addEventListener('click', () => {
-  const key = button.dataset.destination === 'repository' ? 'repositoryUrl' : 'compilationUrl';
-  try { const url = validUrl(config[key]); if (!url) openSettings(); else if (key === 'repositoryUrl') window.open(url, '_blank', 'noopener,noreferrer'); else window.location.assign(url); }
-  catch { openSettings(); }
-});
-$('#open-settings').addEventListener('click', openSettings);
-$('#close-dialog').addEventListener('click', () => $('#link-dialog').close());
-function formConfig() { return { compilationUrl: validUrl($('#compilation-url').value.trim()), repositoryUrl: validUrl($('#repository-url').value.trim()) }; }
-$('#link-form').addEventListener('submit', event => {
-  event.preventDefault();
+// Public navigation exposes the compilation destination only.
+document.querySelectorAll('[data-destination="compilation"]').forEach(button => button.addEventListener('click', () => {
   try {
-    config = formConfig();
-    try { localStorage.setItem(storageKey, JSON.stringify(config)); toast('Links saved for this browser.'); } catch { toast('Links applied for this visit. Browser storage is unavailable.'); }
-    $('#link-dialog').close();
-  } catch (e) { $('#link-error').textContent = e.message; $('#link-error').hidden = false; }
-});
-$('#download-config').addEventListener('click', () => {
-  try { const values = formConfig(); downloadBlob(new Blob([`// Replace the website's site-config.js with this file.\nwindow.LAB_CONFIG = ${JSON.stringify(values, null, 2)};\n`], { type: 'text/javascript' }), 'site-config.js'); }
-  catch (e) { $('#link-error').textContent = e.message; $('#link-error').hidden = false; }
-});
+    const url = new URL(window.LAB_CONFIG?.compilationUrl || '');
+    if (!['https:', 'http:'].includes(url.protocol) || url.username || url.password) throw new Error('Invalid compilation address.');
+    window.location.assign(url.href);
+  } catch { toast('The compilation link is not configured.'); }
+}));
+
 $('#menu-toggle').addEventListener('click', () => {
   const open = $('#menu-toggle').getAttribute('aria-expanded') !== 'true';
   $('#menu-toggle').setAttribute('aria-expanded', String(open)); $('#menu-toggle').setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
