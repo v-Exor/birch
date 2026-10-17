@@ -1,0 +1,6 @@
+* text=auto eol=lf
+assets/vendor/opencv.js -text
+*.png binary
+*.jpg binary
+*.webp binary
+*.zip binary

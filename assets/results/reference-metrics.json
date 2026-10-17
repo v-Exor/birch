@@ -1,0 +1,32 @@
+{
+  "source": "Student-provided cat.jpg from the completed Lab 2 activity; not embedded in the handout",
+  "engine": "Python OpenCV 5.0.0",
+  "input_shape": [
+    736,
+    736
+  ],
+  "gaussian_kernel": [
+    3,
+    3
+  ],
+  "sigma": 0,
+  "sobel": {
+    "depth": "CV_64F",
+    "kernel": 3,
+    "combination": "sqrt(Gx^2+Gy^2)",
+    "peak": 617.8106506042122,
+    "mean": 26.114262009992014,
+    "display": "min-max normalized to 8-bit"
+  },
+  "canny": {
+    "thresholds": [
+      100,
+      200
+    ],
+    "aperture": 3,
+    "L2gradient": false,
+    "edge_pixels": 13286,
+    "edge_density_percent": 2.4526671786389413
+  },
+  "note": "Browser JPEG decoding, RGBA-to-gray conversion, CV_32F derivatives, and OpenCV versions may differ slightly. Reference outputs are genuine precomputed Python outputs, not live browser results."
+}
